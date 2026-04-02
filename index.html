@@ -5,132 +5,142 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>DealFlow CRM — Agent Quick Start Guide</title>
 <style>
-  @page {
-    size: letter;
-    margin: 0.6in 0.7in;
-  }
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    font-size: 10.5pt;
-    line-height: 1.5;
     color: #1e293b;
-    max-width: 7.5in;
-    margin: 0 auto;
-    padding: 0.5in;
+    background: #0f172a;
+    overflow: hidden;
+    height: 100vh;
   }
 
-  /* Cover / Header */
-  .cover {
-    text-align: center;
-    padding: 28px 0 20px;
-    border-bottom: 3px solid #9d2620;
-    margin-bottom: 24px;
+  /* ── Slide container ── */
+  .slide {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    width: 100vw;
+    height: 100vh;
+    padding: 60px 80px;
+    background: white;
+    overflow-y: auto;
   }
-  .cover h1 {
-    font-size: 26pt;
+  .slide.active { display: flex; }
+
+  /* ── Cover slide ── */
+  .slide.cover-slide {
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+    color: white;
+  }
+  .cover-slide h1 {
+    font-size: 56px;
+    font-weight: 800;
+    color: #fff;
+    letter-spacing: -1px;
+    margin-bottom: 8px;
+  }
+  .cover-slide .accent-bar {
+    width: 80px;
+    height: 4px;
+    background: #9d2620;
+    margin: 16px auto;
+    border-radius: 2px;
+  }
+  .cover-slide .subtitle {
+    font-size: 22px;
+    color: #94a3b8;
+    font-weight: 400;
+  }
+  .cover-slide .org {
+    font-size: 14px;
+    color: #64748b;
+    margin-top: 24px;
+  }
+
+  /* ── Slide typography ── */
+  .slide h2 {
+    font-size: 36px;
     font-weight: 800;
     color: #9d2620;
-    letter-spacing: -0.5px;
-    margin-bottom: 4px;
+    margin-bottom: 24px;
+    line-height: 1.2;
   }
-  .cover .subtitle {
-    font-size: 13pt;
-    color: #64748b;
-    font-weight: 500;
-  }
-  .cover .org {
-    font-size: 10pt;
-    color: #94a3b8;
-    margin-top: 6px;
-  }
-
-  /* Section headers */
-  h2 {
-    font-size: 14pt;
-    font-weight: 700;
-    color: #9d2620;
-    border-bottom: 2px solid #9d2620;
-    padding-bottom: 3px;
-    margin: 22px 0 10px;
-    page-break-after: avoid;
-  }
-  h3 {
-    font-size: 11pt;
+  .slide h3 {
+    font-size: 20px;
     font-weight: 700;
     color: #1e293b;
-    margin: 14px 0 6px;
-    page-break-after: avoid;
+    margin: 20px 0 8px;
   }
-  h4 {
-    font-size: 10pt;
-    font-weight: 600;
+  .slide h4 {
+    font-size: 15px;
+    font-weight: 700;
     color: #475569;
-    margin: 10px 0 4px;
+    margin: 12px 0 6px;
   }
+  .slide p {
+    font-size: 18px;
+    line-height: 1.6;
+    margin-bottom: 12px;
+    color: #334155;
+  }
+  .slide ul, .slide ol {
+    font-size: 17px;
+    line-height: 1.6;
+    margin: 6px 0 12px 24px;
+    color: #334155;
+  }
+  .slide li { margin-bottom: 6px; }
 
-  p { margin-bottom: 6px; }
-
-  /* Two-column layout */
+  /* ── Two-column ── */
   .two-col {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 16px;
-    margin: 8px 0;
+    gap: 32px;
+    margin: 12px 0;
   }
 
-  /* Callout boxes */
+  /* ── Callout ── */
   .callout {
     background: #fef2f2;
-    border-left: 3px solid #9d2620;
-    padding: 8px 12px;
-    margin: 10px 0;
-    font-size: 9.5pt;
-    border-radius: 0 4px 4px 0;
+    border-left: 4px solid #9d2620;
+    padding: 14px 18px;
+    margin: 16px 0;
+    font-size: 16px;
+    border-radius: 0 8px 8px 0;
+    line-height: 1.5;
   }
-  .callout.tip {
-    background: #f0fdf4;
-    border-left-color: #22c55e;
-  }
-  .callout.info {
-    background: #eff6ff;
-    border-left-color: #3b82f6;
-  }
-  .callout strong { display: block; margin-bottom: 2px; }
+  .callout.tip { background: #f0fdf4; border-left-color: #22c55e; }
+  .callout.info { background: #eff6ff; border-left-color: #3b82f6; }
+  .callout strong { display: block; margin-bottom: 4px; font-size: 15px; }
 
-  /* Lists */
-  ul, ol {
-    margin: 4px 0 8px 18px;
-  }
-  li {
-    margin-bottom: 3px;
-  }
-
-  /* Tables */
+  /* ── Table ── */
   table {
     width: 100%;
     border-collapse: collapse;
-    margin: 8px 0 12px;
-    font-size: 9.5pt;
+    margin: 12px 0;
+    font-size: 16px;
   }
   th {
     background: #f8fafc;
     text-align: left;
     font-weight: 700;
-    padding: 5px 8px;
+    padding: 8px 12px;
     border: 1px solid #e2e8f0;
     color: #475569;
-    font-size: 8.5pt;
+    font-size: 12px;
     text-transform: uppercase;
-    letter-spacing: 0.3px;
+    letter-spacing: 0.5px;
   }
   td {
-    padding: 5px 8px;
+    padding: 8px 12px;
     border: 1px solid #e2e8f0;
     vertical-align: top;
   }
 
-  /* Step lists */
+  /* ── Steps ── */
   .steps {
     counter-reset: step;
     list-style: none;
@@ -139,42 +149,33 @@
   }
   .steps li {
     counter-increment: step;
-    padding-left: 28px;
+    padding-left: 36px;
     position: relative;
-    margin-bottom: 6px;
+    margin-bottom: 10px;
+    font-size: 17px;
   }
   .steps li::before {
     content: counter(step);
     position: absolute;
     left: 0;
-    top: 1px;
-    width: 20px;
-    height: 20px;
+    top: 2px;
+    width: 24px;
+    height: 24px;
     background: #9d2620;
     color: white;
     border-radius: 50%;
-    font-size: 9pt;
+    font-size: 13px;
     font-weight: 700;
     text-align: center;
-    line-height: 20px;
+    line-height: 24px;
   }
 
-  /* Keyboard shortcuts */
-  kbd {
-    background: #f1f5f9;
-    border: 1px solid #cbd5e1;
-    border-radius: 3px;
-    padding: 0 4px;
-    font-size: 9pt;
-    font-family: inherit;
-  }
-
-  /* Stage badges inline */
+  /* ── Badges ── */
   .badge {
     display: inline-block;
-    padding: 1px 6px;
-    border-radius: 3px;
-    font-size: 8pt;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 11px;
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.3px;
@@ -188,496 +189,563 @@
   .badge-uc { background: #fef3c7; color: #92400e; }
   .badge-closed { background: #f1f5f9; color: #475569; }
 
-  /* Divider */
-  hr {
-    border: none;
-    border-top: 1px solid #e2e8f0;
-    margin: 16px 0;
-  }
-
-  /* Flow diagram */
+  /* ── Flow diagram ── */
   .flow {
     display: flex;
     align-items: center;
-    gap: 6px;
-    margin: 10px 0;
+    gap: 8px;
+    margin: 16px 0;
     flex-wrap: wrap;
-    font-size: 9.5pt;
+    font-size: 15px;
     font-weight: 600;
   }
   .flow .node {
     background: #f8fafc;
-    border: 1px solid #e2e8f0;
-    padding: 4px 10px;
-    border-radius: 6px;
+    border: 2px solid #e2e8f0;
+    padding: 8px 16px;
+    border-radius: 8px;
   }
-  .flow .arrow { color: #9d2620; font-size: 12pt; }
+  .flow .arrow { color: #9d2620; font-size: 18px; }
   .flow .node.highlight {
     background: #9d2620;
     color: white;
     border-color: #9d2620;
   }
-
-  /* Footer */
-  .footer {
-    text-align: center;
-    font-size: 8pt;
-    color: #94a3b8;
-    margin-top: 24px;
-    padding-top: 10px;
-    border-top: 1px solid #e2e8f0;
+  .flow .node.green {
+    background: #f0fdf4;
+    border-color: #22c55e;
   }
 
-  /* Print */
+  kbd {
+    background: #f1f5f9;
+    border: 1px solid #cbd5e1;
+    border-radius: 3px;
+    padding: 1px 6px;
+    font-size: 14px;
+    font-family: inherit;
+  }
+
+  /* ── Navigation bar ── */
+  .nav-bar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 56px;
+    background: #1e293b;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 32px;
+    z-index: 100;
+    box-shadow: 0 -2px 12px rgba(0,0,0,0.15);
+  }
+  .nav-bar .slide-counter {
+    color: #94a3b8;
+    font-size: 13px;
+    font-weight: 600;
+    min-width: 100px;
+  }
+  .nav-bar .slide-title {
+    color: #e2e8f0;
+    font-size: 14px;
+    font-weight: 500;
+    flex: 1;
+    text-align: center;
+  }
+  .nav-bar .nav-buttons {
+    display: flex;
+    gap: 8px;
+    min-width: 100px;
+    justify-content: flex-end;
+  }
+  .nav-btn {
+    background: #334155;
+    color: white;
+    border: none;
+    padding: 8px 20px;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.15s;
+  }
+  .nav-btn:hover { background: #475569; }
+  .nav-btn:disabled { opacity: 0.3; cursor: not-allowed; }
+  .nav-btn.primary { background: #9d2620; }
+  .nav-btn.primary:hover { background: #b82d26; }
+
+  /* ── Progress bar ── */
+  .progress-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 3px;
+    background: #9d2620;
+    transition: width 0.3s ease;
+    z-index: 101;
+  }
+
+  /* ── Print styles ── */
   @media print {
-    body { padding: 0; max-width: none; }
-    .no-print { display: none; }
-    h2 { break-after: avoid; }
-    .callout, table, .two-col { break-inside: avoid; }
+    body { background: white; overflow: visible; height: auto; }
+    .slide { display: flex !important; page-break-after: always; height: auto; min-height: 100vh; padding: 0.5in; }
+    .nav-bar, .progress-bar { display: none !important; }
+    .slide h2 { font-size: 20pt; }
+    .slide p, .slide li { font-size: 11pt; }
+    table { font-size: 10pt; }
+    .callout { font-size: 10pt; }
   }
 </style>
 </head>
 <body>
 
-<div class="cover">
+<div class="progress-bar" id="progress"></div>
+
+<!-- ══════════════ SLIDE 1: Cover ══════════════ -->
+<div class="slide cover-slide active" data-title="Welcome">
   <h1>DealFlow CRM</h1>
+  <div class="accent-bar"></div>
   <div class="subtitle">Agent Quick Start Guide</div>
-  <div class="org">Premier Realty Group of West Tennessee, LLC</div>
+  <div class="org">Premier Realty Group of West Tennessee, LLC<br>Paris &bull; McKenzie &bull; Huntingdon</div>
 </div>
 
-<!-- ──────────────────────────────────────── -->
-<h2>1. The Big Picture</h2>
+<!-- ══════════════ SLIDE 2: Big Picture ══════════════ -->
+<div class="slide" data-title="The Big Picture">
+  <h2>The Big Picture</h2>
 
-<p>DealFlow is built around one simple lifecycle:</p>
-
-<div class="flow">
-  <span class="node">New Contact</span>
-  <span class="arrow">&rarr;</span>
-  <span class="node highlight">Lead</span>
-  <span class="arrow">&rarr;</span>
-  <span class="node">Qualify</span>
-  <span class="arrow">&rarr;</span>
-  <span class="node highlight">Deal</span>
-  <span class="arrow">&rarr;</span>
-  <span class="node">Close</span>
-  <span class="arrow">&rarr;</span>
-  <span class="node" style="background:#f0fdf4; border-color:#22c55e;">Stay in Touch</span>
-  <span class="arrow">&rarr;</span>
-  <span class="node highlight">New Deal</span>
-  <span class="arrow">&darr;</span>
-</div>
-<p style="font-size:8.5pt; color:#64748b; margin-top:2px;">The cycle repeats &mdash; one Person, many Deals over a lifetime.</p>
-
-<p>Every contact is a <strong>Person</strong> &mdash; and they stay a Person forever. When someone new comes in with buying or selling intent, they enter the <strong>Lead</strong> phase briefly while you qualify them. Once qualified, you create a <strong>Deal</strong> and the lead phase ends. But the relationship doesn't.</p>
-
-<p>After the deal closes, that Person stays in your database. You keep in touch &mdash; birthdays, anniversaries, quarterly check-ins, holiday cards. When they're ready to buy or sell again (or refer someone), you create a <strong>new Deal</strong> directly from their Person record. No need to make them a lead again.</p>
-
-<div class="callout info">
-  <strong>Key Concept</strong>
-  The lead phase is just the front door &mdash; a short qualification step. The Person record is where the lifelong relationship lives. A single Person can have multiple Deals over the years, and every interaction is tracked on that one record.
-</div>
-
-<!-- ──────────────────────────────────────── -->
-<h2>2. Your Dashboard</h2>
-
-<p>The Dashboard (<strong>/crm</strong>) is your daily starting point. It shows:</p>
-
-<div class="two-col">
-  <div>
-    <h4>KPI Cards</h4>
-    <ul>
-      <li><strong>Total Leads</strong> &mdash; your active lead count</li>
-      <li><strong>Active Listings</strong> &mdash; listing deals in play</li>
-      <li><strong>New Leads (Month)</strong> &mdash; leads added this month</li>
-      <li><strong>Pending Sales</strong> &mdash; deals under contract</li>
-    </ul>
+  <div class="flow">
+    <span class="node highlight">Lead Arrives</span>
+    <span class="arrow">&rarr;</span>
+    <span class="node">Qualify</span>
+    <span class="arrow">&rarr;</span>
+    <span class="node highlight">Deal</span>
+    <span class="arrow">&rarr;</span>
+    <span class="node">Close</span>
+    <span class="arrow">&rarr;</span>
+    <span class="node green">Stay in Touch</span>
+    <span class="arrow">&rarr;</span>
+    <span class="node highlight">New Deal</span>
+    <span class="arrow">&#x21BB;</span>
   </div>
-  <div>
-    <h4>Pipelines &amp; Tasks</h4>
-    <ul>
-      <li><strong>Lead Pipeline</strong> &mdash; leads by status</li>
-      <li><strong>Deal Pipeline</strong> &mdash; deals by stage with volume &amp; commission</li>
-      <li><strong>My Tasks</strong> &mdash; overdue (red), today (amber), upcoming</li>
-      <li><strong>Recent Activity</strong> &mdash; last 5 actions across your contacts</li>
-    </ul>
+
+  <p>Leads arrive from everywhere &mdash; website forms, Zillow, Realtor.com, referrals, sign calls, open houses, live chat. However they come in, they land in DealFlow as a <strong>Lead</strong>. You qualify them quickly, create a <strong>Deal</strong>, and the lead phase ends. But the relationship doesn't.</p>
+
+  <p>After the deal closes, that Person stays in your database. You keep in touch &mdash; birthdays, anniversaries, quarterly check-ins. When they're ready to buy or sell again, you create a <strong>new Deal</strong> directly from their record. No need to make them a lead again.</p>
+
+  <div class="callout info">
+    <strong>Key Concept</strong>
+    The lead phase is just the front door &mdash; a short qualification step. The Person record is where the lifelong relationship lives. One Person, many Deals over a lifetime.
   </div>
 </div>
 
-<!-- ──────────────────────────────────────── -->
-<h2>3. Working Your Leads</h2>
+<!-- ══════════════ SLIDE 3: Help & Feedback ══════════════ -->
+<div class="slide" data-title="Help & Feedback">
+  <h2>Getting Help &amp; Giving Feedback</h2>
 
-<h3>Lead Statuses</h3>
-<table>
-  <tr>
-    <th>Status</th>
-    <th>What It Means</th>
-    <th>Your Action</th>
-  </tr>
-  <tr>
-    <td><span class="badge badge-new">Never Contacted</span></td>
-    <td>Brand new &mdash; no outreach yet</td>
-    <td>Call or text within 5 minutes (speed to lead!)</td>
-  </tr>
-  <tr>
-    <td><span class="badge badge-attempted">Awaiting Response</span></td>
-    <td>You've reached out, waiting to hear back</td>
-    <td>Follow up on schedule, try different channels</td>
-  </tr>
-  <tr>
-    <td><span class="badge badge-qualified">Ready for Appointment</span></td>
-    <td>Qualified &amp; ready for a meeting or showing</td>
-    <td>Set the appointment, then convert to a Deal</td>
-  </tr>
-</table>
+  <p><strong>Help is built into every page</strong> and we want your feedback.</p>
 
-<h3>Daily Lead Workflow</h3>
-<ol class="steps">
-  <li>Go to <strong>Leads</strong> page &mdash; click the <span class="badge badge-new">Never Contacted</span> filter</li>
-  <li>Click into each lead &mdash; review their info, source, and any tracking data</li>
-  <li>Make contact (call, text, email) and log the activity in the composer</li>
-  <li>Update their status by working through the qualification checklist</li>
-  <li>When qualified, click <strong>Convert to Client</strong> to create a Deal</li>
-</ol>
-
-<div class="callout tip">
-  <strong>Tip: Pre-Qualification Checklist</strong>
-  Each lead has a checklist on their detail page. Work through it during your conversations &mdash; it guides you through the qualifying questions and tracks your progress.
-</div>
-
-<h3>Lead Detail Page</h3>
-<ul>
-  <li><strong>Value Strip</strong> &mdash; source, contact status, lead score, next action</li>
-  <li><strong>Activity Composer</strong> &mdash; log notes, emails, SMS, and calls</li>
-  <li><strong>Contact Sidebar</strong> &mdash; phone, email, address, quick-call/email buttons</li>
-  <li><strong>Convert to Client</strong> &mdash; creates a Deal and links the person</li>
-  <li><strong>Mark as Junk</strong> &mdash; clears lead status (spam, wrong number, etc.)</li>
-</ul>
-
-<!-- ──────────────────────────────────────── -->
-<h2>4. Managing Deals</h2>
-
-<h3>Deal Stages</h3>
-<div class="flow">
-  <span class="node">Prospecting</span>
-  <span class="arrow">&rarr;</span>
-  <span class="node">Active</span>
-  <span class="arrow">&rarr;</span>
-  <span class="node">Offer</span>
-  <span class="arrow">&rarr;</span>
-  <span class="node">Under Contract</span>
-  <span class="arrow">&rarr;</span>
-  <span class="node highlight">Closed</span>
-</div>
-
-<table>
-  <tr>
-    <th>Stage</th>
-    <th>What's Happening</th>
-  </tr>
-  <tr>
-    <td><span class="badge badge-prospecting">Prospecting</span></td>
-    <td>Client is searching &mdash; setting up alerts, showing properties</td>
-  </tr>
-  <tr>
-    <td><span class="badge badge-active">Active</span></td>
-    <td>Actively working &mdash; listing is live or buyer is seeing homes</td>
-  </tr>
-  <tr>
-    <td><span class="badge badge-offer">Offer</span></td>
-    <td>Offer submitted, negotiating</td>
-  </tr>
-  <tr>
-    <td><span class="badge badge-uc">Under Contract</span></td>
-    <td>Binding agreement signed &mdash; inspections, appraisal, closing prep</td>
-  </tr>
-  <tr>
-    <td><span class="badge badge-closed">Closed</span></td>
-    <td>Done! Commission earned.</td>
-  </tr>
-</table>
-
-<h3>Deal Detail Page</h3>
-<div class="two-col">
-  <div>
-    <h4>Main Area</h4>
-    <ul>
-      <li><strong>Value Strip</strong> &mdash; price, concessions, commission breakdown, dates</li>
-      <li><strong>Activity Tab</strong> &mdash; log calls, emails, meetings, showings</li>
-      <li><strong>Tasks Tab</strong> &mdash; to-dos with due dates and assignments</li>
-      <li><strong>Documents Tab</strong> &mdash; upload contracts, disclosures, etc.</li>
-      <li><strong>Timeline Tab</strong> (under contract+) &mdash; closing checklist</li>
-    </ul>
+  <div class="two-col">
+    <div>
+      <h3>Help System</h3>
+      <ul>
+        <li>Click the <strong>?</strong> button in the top nav on any page</li>
+        <li>A drawer slides open with help specific to that page</li>
+        <li>Covers what everything does, workflows, and tips</li>
+        <li>Press <kbd>Esc</kbd> to close</li>
+      </ul>
+    </div>
+    <div>
+      <h3>Feedback &amp; Bug Reports</h3>
+      <ul>
+        <li>Click the <strong>+</strong> button in the top nav bar</li>
+        <li>Submit bugs, suggestions, or feature requests</li>
+        <li>Includes automatic screenshot &amp; context snapshot</li>
+        <li>Admin reviews and responds &mdash; your input shapes the system</li>
+      </ul>
+    </div>
   </div>
-  <div>
-    <h4>Right Sidebar</h4>
-    <ul>
-      <li><strong>Participants</strong> &mdash; buyers, sellers, co-buyers linked to deal</li>
-      <li><strong>Property</strong> &mdash; linked listing with MLS data</li>
-      <li><strong>Vendors</strong> &mdash; lender, attorney, inspector on the deal</li>
-      <li><strong>Assigned Agent</strong> &mdash; who owns this deal</li>
-    </ul>
+
+  <div class="callout tip">
+    <strong>Don't Struggle in Silence</strong>
+    If something is confusing, broken, or could be better &mdash; tell us. The help drawer and feedback button are always one click away.
   </div>
 </div>
 
-<div class="callout">
-  <strong>Advancing Stages</strong>
-  Click the <strong>Advance Stage</strong> button at the top of a deal. Moving to "Under Contract" opens a special modal for binding date, closing date, and contract details. Moving a listing to "Active" prompts for the MLS number.
-</div>
+<!-- ══════════════ SLIDE 4: Live Chat ══════════════ -->
+<div class="slide" data-title="Live Chat">
+  <h2>Live Chat &mdash; Your #1 Lead Source</h2>
 
-<!-- ──────────────────────────────────────── -->
-<h2>5. After the Close &mdash; The Real Work</h2>
+  <p>Most of your new leads will come through the website's live chat. When a visitor starts a conversation, it appears in the <strong>Chat Dock</strong> at the bottom of your CRM screen.</p>
 
-<p>Closing a deal is not the end &mdash; it's the start of a lifelong relationship. Your past clients are your best source of future business and referrals.</p>
-
-<h3>Stay-in-Touch Milestones</h3>
-<table>
-  <tr>
-    <th>Touchpoint</th>
-    <th>When</th>
-    <th>Why It Matters</th>
-  </tr>
-  <tr>
-    <td><strong>Closing Anniversary</strong></td>
-    <td>Annually</td>
-    <td>"Happy home-iversary!" &mdash; keeps you top of mind</td>
-  </tr>
-  <tr>
-    <td><strong>Birthday</strong></td>
-    <td>Annually</td>
-    <td>Personal touch that builds loyalty</td>
-  </tr>
-  <tr>
-    <td><strong>Quarterly Check-In</strong></td>
-    <td>Every 3 months</td>
-    <td>Market updates, neighborhood news, "how's the house?"</td>
-  </tr>
-  <tr>
-    <td><strong>Holiday Cards</strong></td>
-    <td>Seasonally</td>
-    <td>Stays visible without being pushy</td>
-  </tr>
-</table>
-
-<h3>Be Their Go-To Resource</h3>
-<p>Your Vendor Directory isn't just for you &mdash; it's a service you provide to clients after the sale. Need a plumber? You've got the best one. House cleaner? Here you go. Handyman, electrician, pest control? You have vetted contacts for all of it.</p>
-
-<p>When a past client calls you for a vendor recommendation, that's a <strong>touchpoint</strong> &mdash; a reason to stay connected. Use <strong>Refer to Client</strong> on any vendor to send their info directly. Every referral you make reinforces that you're not just their agent, you're their real estate resource for life.</p>
-
-<div class="callout info">
-  <strong>The Vendor Advantage</strong>
-  Agents who provide ongoing value after the sale get 3&ndash;5x more repeat and referral business. Your vendor directory is a competitive edge &mdash; use it.
-</div>
-
-<h3>When They're Ready Again</h3>
-<p>When a past client is ready to buy or sell again &mdash; or sends you a referral &mdash; you <strong>don't</strong> need to make them a lead again. Go to their Person record and create a new Deal directly. Their entire history (past deals, notes, activity) is right there on one record.</p>
-
-<div class="callout tip">
-  <strong>Tip: Use Smart Lists</strong>
-  Create a Smart List like "Past Clients &mdash; No Activity 90+ Days" to find people who are due for a check-in. Your database is your business &mdash; nurture it.
-</div>
-
-<!-- ──────────────────────────────────────── -->
-<h2>6. Alerts &amp; Trackers</h2>
-
-<p>Found in the <strong>Notifications</strong> tab on each Deal:</p>
-
-<table>
-  <tr>
-    <th>Feature</th>
-    <th>What It Does</th>
-  </tr>
-  <tr>
-    <td><strong>Alerts</strong></td>
-    <td>Saved search criteria (price, beds, location, features). The system checks new MLS listings every 15 minutes and emails your client when matches are found.</td>
-  </tr>
-  <tr>
-    <td><strong>Trackers</strong></td>
-    <td>Watches a specific MLS listing for price changes, status changes, or new photos. Notifies your client automatically when something changes.</td>
-  </tr>
-</table>
-
-<!-- ──────────────────────────────────────── -->
-<h2>7. People &amp; Smart Lists</h2>
-
-<p>The <strong>People</strong> page shows your full contact database &mdash; every lead, past client, vendor contact, and referral.</p>
-
-<h3>Smart Lists</h3>
-<p>Save filtered views for quick access. Examples:</p>
-<ul>
-  <li>"My Active Buyers" &mdash; filter: lead status = qualified, source = website</li>
-  <li>"Paris Office Leads" &mdash; filter: assigned agent office = Paris</li>
-  <li>"Needs Follow-Up" &mdash; filter: last activity > 14 days ago</li>
-</ul>
-
-<p>Smart Lists are available on both the <strong>People</strong> and <strong>Deals</strong> pages. You can save them as personal or share with your office/team.</p>
-
-<!-- ──────────────────────────────────────── -->
-<h2>8. Vendors</h2>
-
-<p>The Vendor Directory stores service companies you work with &mdash; lenders, attorneys, inspectors, title companies, etc.</p>
-
-<div class="two-col">
-  <div>
-    <h4>Finding Vendors</h4>
-    <ul>
-      <li>Filter by <strong>category</strong> (Lender, Attorney, etc.)</li>
-      <li>Sort by <strong>Most Deals</strong> or <strong>Most Referrals</strong></li>
-      <li>Search by company or employee name</li>
-      <li>Look for the <strong>Preferred</strong> badge</li>
-    </ul>
+  <div class="two-col">
+    <div>
+      <h3>Chat Tab</h3>
+      <ul>
+        <li>Real-time messaging with website visitors</li>
+        <li>Notification when a new chat comes in</li>
+        <li>Routed by office and floor schedule</li>
+      </ul>
+    </div>
+    <div>
+      <h3>Activity Tab</h3>
+      <ul>
+        <li>See exactly which listings the visitor browsed</li>
+        <li>Their location and how they found the site</li>
+        <li>Matched to existing CRM person if known</li>
+      </ul>
+    </div>
   </div>
-  <div>
-    <h4>Using Vendors on Deals</h4>
-    <ul>
-      <li>Add vendors to a deal from the deal sidebar</li>
-      <li>Select the specific contact person at that company</li>
-      <li>Use <strong>Refer to Client</strong> on vendor detail to send a referral</li>
-      <li>Leave <strong>Agent Reviews</strong> for your team</li>
-    </ul>
+
+  <div class="callout">
+    <strong>Speed to Lead</strong>
+    Responding within 60 seconds dramatically increases conversion. When you're on floor duty, keep the CRM open. That chat notification is new business walking through the door.
   </div>
 </div>
 
-<!-- ──────────────────────────────────────── -->
-<h2>9. Listings &amp; Properties</h2>
+<!-- ══════════════ SLIDE 5: Dashboard ══════════════ -->
+<div class="slide" data-title="Dashboard">
+  <h2>Your Dashboard</h2>
 
-<div class="two-col">
-  <div>
-    <h4>Listings (Mini MLS)</h4>
-    <p>Browse all MLS listings synced every 5 minutes from CWTAR and Navica. Use Grid, List, or Map view. Filter by price, beds, baths, acres, county, and 18+ property features.</p>
-    <p>Toggle <strong>My Listings</strong> to see only your own.</p>
-  </div>
-  <div>
-    <h4>Properties (Tax Records)</h4>
-    <p>Search 450,000+ county parcel records. Use search flags for precision:</p>
-    <ul>
-      <li><kbd>owner:Smith</kbd> &mdash; search by owner name</li>
-      <li><kbd>address:Maple</kbd> &mdash; search by street</li>
-      <li><kbd>city:Paris</kbd> &mdash; search by city</li>
-      <li><kbd>apn:001-234</kbd> &mdash; search by parcel number</li>
-    </ul>
-  </div>
-</div>
+  <p>The Dashboard is your daily starting point.</p>
 
-<!-- ──────────────────────────────────────── -->
-<h2>10. Tasks</h2>
-
-<p>Your task board (<strong>/crm/tasks</strong>) organizes work into columns:</p>
-
-<table>
-  <tr>
-    <th>Column</th>
-    <th>What's In It</th>
-  </tr>
-  <tr>
-    <td><strong>Overdue</strong> (red)</td>
-    <td>Past-due tasks &mdash; handle these first</td>
-  </tr>
-  <tr>
-    <td><strong>Today</strong> (amber)</td>
-    <td>Due today &mdash; your daily priority list</td>
-  </tr>
-  <tr>
-    <td><strong>This Week</strong></td>
-    <td>Coming up &mdash; plan ahead</td>
-  </tr>
-</table>
-
-<p>Tasks can be created from deal detail pages, or directly from the tasks board. Each task links to a deal and/or person for context.</p>
-
-<!-- ──────────────────────────────────────── -->
-<h2>11. Live Chat</h2>
-
-<p>When visitors chat on the website, conversations appear in the <strong>Chat Dock</strong> at the bottom of your CRM. Chats are routed based on office and floor schedule.</p>
-
-<ul>
-  <li><strong>Chat Tab</strong> &mdash; the conversation</li>
-  <li><strong>Activity Tab</strong> &mdash; the visitor's browsing history, which listings they viewed, UTM source, matched CRM person</li>
-  <li>Click a listing in Activity to see it instantly</li>
-</ul>
-
-<div class="callout tip">
-  <strong>Tip: Speed Matters</strong>
-  Responding within 60 seconds dramatically increases conversion. Keep the CRM open when you're on floor duty.
-</div>
-
-<!-- ──────────────────────────────────────── -->
-<h2>12. Reports</h2>
-
-<p>Five pre-built reports available from <strong>/crm/reports</strong>:</p>
-
-<table>
-  <tr>
-    <th>Report</th>
-    <th>What It Shows</th>
-  </tr>
-  <tr>
-    <td>Agent Performance</td>
-    <td>Your deals closed, volume, commission, activity counts</td>
-  </tr>
-  <tr>
-    <td>Pipeline</td>
-    <td>Deals by stage with total volume and projected commission</td>
-  </tr>
-  <tr>
-    <td>Lead Source ROI</td>
-    <td>Which sources generate the most leads and conversions</td>
-  </tr>
-  <tr>
-    <td>Activity</td>
-    <td>Calls, emails, showings, meetings logged by agent</td>
-  </tr>
-  <tr>
-    <td>Office Comparison</td>
-    <td>Paris vs McKenzie vs Huntingdon performance</td>
-  </tr>
-</table>
-
-<p>All reports support date presets (7d, 30d, 90d, YTD) and CSV export.</p>
-
-<!-- ──────────────────────────────────────── -->
-<h2>13. Help &amp; Navigation Tips</h2>
-
-<div class="two-col">
-  <div>
-    <h4>Getting Help</h4>
-    <ul>
-      <li>Click the <strong>?</strong> button on any page to open the help drawer</li>
-      <li>Help content is page-specific &mdash; it shows docs for wherever you are</li>
-      <li>Press <kbd>Esc</kbd> to close the help drawer</li>
-    </ul>
-  </div>
-  <div>
-    <h4>Navigation</h4>
-    <ul>
-      <li><strong>Sidebar</strong> &mdash; collapse with the toggle button for more space</li>
-      <li><strong>Dark Mode</strong> &mdash; toggle in the top nav bar</li>
-      <li><strong>Search</strong> &mdash; use the global search in the top bar for quick access</li>
-      <li><strong>Customize</strong> &mdash; click the gear icon at the bottom of the sidebar to show/hide nav items</li>
-    </ul>
+  <div class="two-col">
+    <div>
+      <h3>KPI Cards</h3>
+      <ul>
+        <li><strong>Total Leads</strong> &mdash; your active lead count</li>
+        <li><strong>Active Listings</strong> &mdash; listing deals in play</li>
+        <li><strong>New Leads (Month)</strong> &mdash; leads added this month</li>
+        <li><strong>Pending Sales</strong> &mdash; deals under contract</li>
+      </ul>
+    </div>
+    <div>
+      <h3>Pipelines &amp; Tasks</h3>
+      <ul>
+        <li><strong>Lead Pipeline</strong> &mdash; leads by status</li>
+        <li><strong>Deal Pipeline</strong> &mdash; deals by stage with volume &amp; commission</li>
+        <li><strong>My Tasks</strong> &mdash; overdue (red), today (amber), upcoming</li>
+        <li><strong>Recent Activity</strong> &mdash; last 5 actions across contacts</li>
+      </ul>
+    </div>
   </div>
 </div>
 
-<hr>
+<!-- ══════════════ SLIDE 6: Lead Statuses ══════════════ -->
+<div class="slide" data-title="Lead Statuses">
+  <h2>Working Your Leads</h2>
 
-<!-- ──────────────────────────────────────── -->
-<h2>Quick Reference: Daily Routine</h2>
+  <table>
+    <tr>
+      <th>Status</th>
+      <th>What It Means</th>
+      <th>Your Action</th>
+    </tr>
+    <tr>
+      <td><span class="badge badge-new">Never Contacted</span></td>
+      <td>Brand new &mdash; no outreach yet</td>
+      <td>Call or text within 5 minutes</td>
+    </tr>
+    <tr>
+      <td><span class="badge badge-attempted">Awaiting Response</span></td>
+      <td>You've reached out, waiting to hear back</td>
+      <td>Follow up, try different channels</td>
+    </tr>
+    <tr>
+      <td><span class="badge badge-qualified">Ready for Appointment</span></td>
+      <td>Qualified &amp; ready for a meeting or showing</td>
+      <td>Set the appointment, then convert to a Deal</td>
+    </tr>
+  </table>
 
-<ol class="steps">
-  <li><strong>Check Dashboard</strong> &mdash; review KPIs, overdue tasks, new leads</li>
-  <li><strong>Work Never Contacted leads</strong> &mdash; call/text within 5 minutes of assignment</li>
-  <li><strong>Follow up on Awaiting Response</strong> &mdash; try different channels (call, text, email)</li>
-  <li><strong>Convert qualified leads</strong> &mdash; create Deals and start working the transaction</li>
-  <li><strong>Advance your deals</strong> &mdash; log activity, update stages, manage tasks</li>
-  <li><strong>Set up Alerts &amp; Trackers</strong> &mdash; keep clients in the loop automatically</li>
-  <li><strong>Monitor Live Chat</strong> &mdash; respond fast when you're on floor duty</li>
-  <li><strong>End of day</strong> &mdash; check tasks for tomorrow, log any final notes</li>
-</ol>
-
-<div class="footer">
-  DealFlow CRM &mdash; Premier Realty Group of West Tennessee, LLC<br>
-  Paris &bull; McKenzie &bull; Huntingdon<br>
-  <em>Guide generated April 2026</em>
+  <h3>Daily Workflow</h3>
+  <ol class="steps">
+    <li>Go to <strong>Leads</strong> &mdash; click the <span class="badge badge-new">Never Contacted</span> filter</li>
+    <li>Click into each lead &mdash; review info, source, tracking data</li>
+    <li>Make contact and log the activity in the composer</li>
+    <li>Work through the <strong>Pre-Qualification Checklist</strong></li>
+    <li>When qualified, click <strong>Convert to Client</strong> to create a Deal</li>
+  </ol>
 </div>
+
+<!-- ══════════════ SLIDE 7: Lead Tools ══════════════ -->
+<div class="slide" data-title="Lead Tools">
+  <h2>Lead Tools</h2>
+
+  <div class="two-col">
+    <div>
+      <h3>Auto Dialer</h3>
+      <p>When you have a stack of leads to call, use the <strong>Dialer</strong>. It pulls your call tasks into a queue.</p>
+      <ul>
+        <li><strong>Browser Mode</strong> &mdash; call from your computer</li>
+        <li><strong>Phone Mode</strong> &mdash; system calls your cell</li>
+      </ul>
+      <p>Log outcomes (Connected, Voicemail, No Answer, Wrong #) and the dialer moves to the next lead. Built-in <strong>objection scripts</strong> available during calls.</p>
+    </div>
+    <div>
+      <h3>Smart Lists</h3>
+      <p>Saved filtered views that let you slice your database instantly.</p>
+      <ul>
+        <li>"My Active Buyers" &mdash; qualified, source = website</li>
+        <li>"Paris Office Leads" &mdash; agent office = Paris</li>
+        <li>"Needs Follow-Up" &mdash; last activity 14+ days ago</li>
+        <li>"Hot Leads This Week" &mdash; created last 7 days</li>
+      </ul>
+      <p>Save as <strong>personal</strong> or <strong>shared</strong> with your office/team.</p>
+    </div>
+  </div>
+
+  <h3>Lead Detail Page</h3>
+  <ul>
+    <li><strong>Value Strip</strong> &mdash; source, contact status, lead score, next action</li>
+    <li><strong>Activity Composer</strong> &mdash; log notes, emails, SMS, and calls</li>
+    <li><strong>Convert to Client</strong> &mdash; creates a Deal &bull; <strong>Mark as Junk</strong> &mdash; clears lead status</li>
+  </ul>
+</div>
+
+<!-- ══════════════ SLIDE 8: Deal Stages ══════════════ -->
+<div class="slide" data-title="Deal Stages">
+  <h2>Managing Deals</h2>
+
+  <div class="flow">
+    <span class="node">Prospecting</span>
+    <span class="arrow">&rarr;</span>
+    <span class="node">Active</span>
+    <span class="arrow">&rarr;</span>
+    <span class="node">Offer</span>
+    <span class="arrow">&rarr;</span>
+    <span class="node">Under Contract</span>
+    <span class="arrow">&rarr;</span>
+    <span class="node highlight">Closed</span>
+  </div>
+
+  <table>
+    <tr><th>Stage</th><th>What's Happening</th></tr>
+    <tr><td><span class="badge badge-prospecting">Prospecting</span></td><td>Client is searching &mdash; setting up alerts, showing properties</td></tr>
+    <tr><td><span class="badge badge-active">Active</span></td><td>Listing is live or buyer is actively seeing homes</td></tr>
+    <tr><td><span class="badge badge-offer">Offer</span></td><td>Offer submitted, negotiating</td></tr>
+    <tr><td><span class="badge badge-uc">Under Contract</span></td><td>Binding agreement &mdash; inspections, appraisal, closing prep</td></tr>
+    <tr><td><span class="badge badge-closed">Closed</span></td><td>Done! Commission earned.</td></tr>
+  </table>
+
+  <div class="callout">
+    <strong>Advancing Stages</strong>
+    Click <strong>Advance Stage</strong> at the top of a deal. "Under Contract" opens a modal for binding/closing dates. "Active" on a listing prompts for the MLS number.
+  </div>
+</div>
+
+<!-- ══════════════ SLIDE 9: Deal Detail ══════════════ -->
+<div class="slide" data-title="Deal Detail">
+  <h2>Deal Detail Page</h2>
+
+  <div class="two-col">
+    <div>
+      <h3>Main Area</h3>
+      <ul>
+        <li><strong>Value Strip</strong> &mdash; price, concessions, commission, dates</li>
+        <li><strong>Activity Tab</strong> &mdash; log calls, emails, meetings, showings</li>
+        <li><strong>Tasks Tab</strong> &mdash; to-dos with due dates</li>
+        <li><strong>Documents Tab</strong> &mdash; upload contracts, disclosures</li>
+        <li><strong>Timeline Tab</strong> (under contract+) &mdash; closing checklist</li>
+      </ul>
+    </div>
+    <div>
+      <h3>Right Sidebar</h3>
+      <ul>
+        <li><strong>Participants</strong> &mdash; buyers, sellers, co-buyers</li>
+        <li><strong>Property</strong> &mdash; linked listing with MLS data</li>
+        <li><strong>Vendors</strong> &mdash; lender, attorney, inspector</li>
+        <li><strong>Assigned Agent</strong></li>
+      </ul>
+
+      <h3>Alerts &amp; Trackers</h3>
+      <ul>
+        <li><strong>Alerts</strong> &mdash; saved search. System emails client every 15 min when new matches appear.</li>
+        <li><strong>Trackers</strong> &mdash; watches a listing for price/status changes.</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════ SLIDE 10: After the Close ══════════════ -->
+<div class="slide" data-title="After the Close">
+  <h2>After the Close &mdash; The Real Work</h2>
+
+  <p>Closing a deal is the start of a lifelong relationship. Past clients are your best source of future business.</p>
+
+  <div class="two-col">
+    <div>
+      <h3>Stay-in-Touch Milestones</h3>
+      <table>
+        <tr><th>Touchpoint</th><th>When</th></tr>
+        <tr><td><strong>Closing Anniversary</strong></td><td>Annually</td></tr>
+        <tr><td><strong>Birthday</strong></td><td>Annually</td></tr>
+        <tr><td><strong>Quarterly Check-In</strong></td><td>Every 3 months</td></tr>
+        <tr><td><strong>Holiday Cards</strong></td><td>Seasonally</td></tr>
+      </table>
+    </div>
+    <div>
+      <h3>Be Their Go-To Resource</h3>
+      <p>Need a plumber? You've got the best one. House cleaner? Here you go. Your <strong>Vendor Directory</strong> is a service you provide after the sale.</p>
+      <p>Every vendor recommendation is a <strong>touchpoint</strong> that keeps you top of mind. Use <strong>Refer to Client</strong> to send vendor info directly.</p>
+    </div>
+  </div>
+
+  <div class="callout info">
+    <strong>When They're Ready Again</strong>
+    Go to their Person record and create a new Deal directly. No need to make them a lead again. Their entire history is right there.
+  </div>
+</div>
+
+<!-- ══════════════ SLIDE 11: Vendors ══════════════ -->
+<div class="slide" data-title="Vendors">
+  <h2>Vendors</h2>
+
+  <p>The Vendor Directory stores every service company you work with &mdash; lenders, attorneys, inspectors, title companies, contractors, and more.</p>
+
+  <div class="two-col">
+    <div>
+      <h3>Finding Vendors</h3>
+      <ul>
+        <li>Filter by <strong>category</strong> (Lender, Attorney, etc.)</li>
+        <li>Sort by <strong>Most Deals</strong> or <strong>Most Referrals</strong></li>
+        <li>Search by company or employee name</li>
+        <li>Look for the <strong>Preferred</strong> badge</li>
+      </ul>
+    </div>
+    <div>
+      <h3>Using Vendors on Deals</h3>
+      <ul>
+        <li>Add vendors to a deal from the sidebar</li>
+        <li>Select the specific contact person</li>
+        <li><strong>Refer to Client</strong> to send vendor info</li>
+        <li>Leave <strong>Agent Reviews</strong> for your team</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="callout tip">
+    <strong>The Vendor Advantage</strong>
+    Agents who provide ongoing value after the sale get 3&ndash;5x more repeat and referral business. Your vendor directory is a competitive edge &mdash; use it.
+  </div>
+</div>
+
+<!-- ══════════════ SLIDE 12: Listings & Properties ══════════════ -->
+<div class="slide" data-title="Listings & Properties">
+  <h2>Listings &amp; Properties</h2>
+
+  <div class="two-col">
+    <div>
+      <h3>Listings (Mini MLS)</h3>
+      <p>Browse all MLS listings synced every 5 minutes from CWTAR and Navica.</p>
+      <ul>
+        <li>Grid, List, or Map view</li>
+        <li>Filter by price, beds, baths, acres, county</li>
+        <li>18+ property feature filters</li>
+        <li>Toggle <strong>My Listings</strong> to see only yours</li>
+      </ul>
+    </div>
+    <div>
+      <h3>Properties (Tax Records)</h3>
+      <p>Search 450,000+ county parcel records. Use flags for precision:</p>
+      <ul>
+        <li><kbd>owner:Smith</kbd> &mdash; by owner name</li>
+        <li><kbd>address:Maple</kbd> &mdash; by street</li>
+        <li><kbd>city:Paris</kbd> &mdash; by city</li>
+        <li><kbd>apn:001-234</kbd> &mdash; by parcel number</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════ SLIDE 13: Tasks & Reports ══════════════ -->
+<div class="slide" data-title="Tasks & Reports">
+  <h2>Tasks &amp; Reports</h2>
+
+  <div class="two-col">
+    <div>
+      <h3>Task Board</h3>
+      <table>
+        <tr><th>Column</th><th>What's In It</th></tr>
+        <tr><td><strong>Overdue</strong> (red)</td><td>Past-due &mdash; handle first</td></tr>
+        <tr><td><strong>Today</strong> (amber)</td><td>Due today &mdash; daily priority</td></tr>
+        <tr><td><strong>This Week</strong></td><td>Coming up &mdash; plan ahead</td></tr>
+      </table>
+      <p>Create tasks from deal pages or the task board. Each links to a deal and/or person.</p>
+    </div>
+    <div>
+      <h3>Reports</h3>
+      <table>
+        <tr><th>Report</th><th>Shows</th></tr>
+        <tr><td>Agent Performance</td><td>Deals, volume, commission</td></tr>
+        <tr><td>Pipeline</td><td>Deals by stage</td></tr>
+        <tr><td>Lead Source ROI</td><td>Which sources convert</td></tr>
+        <tr><td>Activity</td><td>Calls, emails, meetings</td></tr>
+        <tr><td>Office Comparison</td><td>Paris vs McKenzie vs Huntingdon</td></tr>
+      </table>
+      <p>Date presets (7d/30d/90d/YTD) and CSV export.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════ SLIDE 14: Daily Routine ══════════════ -->
+<div class="slide" data-title="Daily Routine">
+  <h2>Your Daily Routine</h2>
+
+  <ol class="steps">
+    <li><strong>Check Dashboard</strong> &mdash; review KPIs, overdue tasks, new leads</li>
+    <li><strong>Work Never Contacted leads</strong> &mdash; call/text within 5 minutes of assignment</li>
+    <li><strong>Follow up on Awaiting Response</strong> &mdash; try different channels</li>
+    <li><strong>Convert qualified leads</strong> &mdash; create Deals, start working the transaction</li>
+    <li><strong>Advance your deals</strong> &mdash; log activity, update stages, manage tasks</li>
+    <li><strong>Set up Alerts &amp; Trackers</strong> &mdash; keep clients in the loop automatically</li>
+    <li><strong>Monitor Live Chat</strong> &mdash; respond fast when you're on floor duty</li>
+    <li><strong>End of day</strong> &mdash; check tasks for tomorrow, log any final notes</li>
+  </ol>
+
+  <div class="callout tip">
+    <strong>Remember</strong>
+    The lead phase is just the front door. The relationship is what you're building. Your database is your business &mdash; nurture it every single day.
+  </div>
+</div>
+
+<!-- ══════════════ Navigation Bar ══════════════ -->
+<div class="nav-bar">
+  <div class="slide-counter" id="counter">1 / 14</div>
+  <div class="slide-title" id="slideTitle">Welcome</div>
+  <div class="nav-buttons">
+    <button class="nav-btn" id="prevBtn" onclick="prev()" disabled>&larr; Prev</button>
+    <button class="nav-btn primary" id="nextBtn" onclick="next()">Next &rarr;</button>
+  </div>
+</div>
+
+<script>
+  const slides = document.querySelectorAll('.slide');
+  let current = 0;
+
+  function show(n) {
+    slides[current].classList.remove('active');
+    current = Math.max(0, Math.min(n, slides.length - 1));
+    slides[current].classList.add('active');
+    document.getElementById('counter').textContent = `${current + 1} / ${slides.length}`;
+    document.getElementById('slideTitle').textContent = slides[current].dataset.title || '';
+    document.getElementById('prevBtn').disabled = current === 0;
+    document.getElementById('nextBtn').disabled = current === slides.length - 1;
+    document.getElementById('nextBtn').textContent = current === slides.length - 1 ? 'Done' : 'Next →';
+    document.getElementById('progress').style.width = `${((current + 1) / slides.length) * 100}%`;
+    slides[current].scrollTop = 0;
+  }
+
+  function next() { show(current + 1); }
+  function prev() { show(current - 1); }
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); next(); }
+    if (e.key === 'ArrowLeft') { e.preventDefault(); prev(); }
+  });
+
+  show(0);
+</script>
 
 </body>
 </html>
