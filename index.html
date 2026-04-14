@@ -1,322 +1,446 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>DealFlow CRM — Agent Quick Start Guide</title>
-<style>
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  body {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    color: #1e293b;
-    background: #0f172a;
-    overflow: hidden;
-    height: 100vh;
-  }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DealFlow CRM — Agent Quick Start Guide</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-  /* ── Slide container ── */
-  .slide {
-    display: none;
-    flex-direction: column;
-    justify-content: center;
-    width: 100vw;
-    height: 100vh;
-    padding: 60px 80px;
-    background: white;
-    overflow-y: auto;
-  }
-  .slide.active { display: flex; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      color: #1e293b;
+      background: #0f172a;
+      overflow: hidden;
+      height: 100vh;
+    }
 
-  /* ── Cover slide ── */
-  .slide.cover-slide {
-    text-align: center;
-    justify-content: center;
-    align-items: center;
-    background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
-    color: white;
-  }
-  .cover-slide h1 {
-    font-size: 56px;
-    font-weight: 800;
-    color: #fff;
-    letter-spacing: -1px;
-    margin-bottom: 8px;
-  }
-  .cover-slide .accent-bar {
-    width: 80px;
-    height: 4px;
-    background: #9d2620;
-    margin: 16px auto;
-    border-radius: 2px;
-  }
-  .cover-slide .subtitle {
-    font-size: 22px;
-    color: #94a3b8;
-    font-weight: 400;
-  }
-  .cover-slide .org {
-    font-size: 14px;
-    color: #64748b;
-    margin-top: 24px;
-  }
+    /* ── Slide container ── */
+    .slide {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      width: 100vw;
+      height: 100vh;
+      padding: 60px 80px;
+      background: white;
+      overflow-y: auto;
+    }
 
-  /* ── Slide typography ── */
-  .slide h2 {
-    font-size: 36px;
-    font-weight: 800;
-    color: #9d2620;
-    margin-bottom: 24px;
-    line-height: 1.2;
-  }
-  .slide h3 {
-    font-size: 20px;
-    font-weight: 700;
-    color: #1e293b;
-    margin: 20px 0 8px;
-  }
-  .slide h4 {
-    font-size: 15px;
-    font-weight: 700;
-    color: #475569;
-    margin: 12px 0 6px;
-  }
-  .slide p {
-    font-size: 18px;
-    line-height: 1.6;
-    margin-bottom: 12px;
-    color: #334155;
-  }
-  .slide ul, .slide ol {
-    font-size: 17px;
-    line-height: 1.6;
-    margin: 6px 0 12px 24px;
-    color: #334155;
-  }
-  .slide li { margin-bottom: 6px; }
+    .slide.active {
+      display: flex;
+    }
 
-  /* ── Two-column ── */
-  .two-col {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 32px;
-    margin: 12px 0;
-  }
+    /* ── Cover slide ── */
+    .slide.cover-slide {
+      text-align: center;
+      justify-content: center;
+      align-items: center;
+      background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+      color: white;
+    }
 
-  /* ── Callout ── */
-  .callout {
-    background: #fef2f2;
-    border-left: 4px solid #9d2620;
-    padding: 14px 18px;
-    margin: 16px 0;
-    font-size: 16px;
-    border-radius: 0 8px 8px 0;
-    line-height: 1.5;
-  }
-  .callout.tip { background: #f0fdf4; border-left-color: #22c55e; }
-  .callout.info { background: #eff6ff; border-left-color: #3b82f6; }
-  .callout strong { display: block; margin-bottom: 4px; font-size: 15px; }
+    .cover-slide h1 {
+      font-size: 56px;
+      font-weight: 800;
+      color: #fff;
+      letter-spacing: -1px;
+      margin-bottom: 8px;
+    }
 
-  /* ── Table ── */
-  table {
-    width: 100%;
-    border-collapse: collapse;
-    margin: 12px 0;
-    font-size: 16px;
-  }
-  th {
-    background: #f8fafc;
-    text-align: left;
-    font-weight: 700;
-    padding: 8px 12px;
-    border: 1px solid #e2e8f0;
-    color: #475569;
-    font-size: 12px;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-  }
-  td {
-    padding: 8px 12px;
-    border: 1px solid #e2e8f0;
-    vertical-align: top;
-  }
+    .cover-slide .accent-bar {
+      width: 80px;
+      height: 4px;
+      background: #9d2620;
+      margin: 16px auto;
+      border-radius: 2px;
+    }
 
-  /* ── Steps ── */
-  .steps {
-    counter-reset: step;
-    list-style: none;
-    margin-left: 0;
-    padding-left: 0;
-  }
-  .steps li {
-    counter-increment: step;
-    padding-left: 36px;
-    position: relative;
-    margin-bottom: 10px;
-    font-size: 17px;
-  }
-  .steps li::before {
-    content: counter(step);
-    position: absolute;
-    left: 0;
-    top: 2px;
-    width: 24px;
-    height: 24px;
-    background: #9d2620;
-    color: white;
-    border-radius: 50%;
-    font-size: 13px;
-    font-weight: 700;
-    text-align: center;
-    line-height: 24px;
-  }
+    .cover-slide .subtitle {
+      font-size: 22px;
+      color: #94a3b8;
+      font-weight: 400;
+    }
 
-  /* ── Badges ── */
-  .badge {
-    display: inline-block;
-    padding: 2px 8px;
-    border-radius: 4px;
-    font-size: 11px;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.3px;
-  }
-  .badge-new { background: #dbeafe; color: #1d4ed8; }
-  .badge-attempted { background: #fef3c7; color: #92400e; }
-  .badge-qualified { background: #d1fae5; color: #065f46; }
-  .badge-prospecting { background: #dbeafe; color: #1d4ed8; }
-  .badge-active { background: #d1fae5; color: #065f46; }
-  .badge-offer { background: #ede9fe; color: #5b21b6; }
-  .badge-uc { background: #fef3c7; color: #92400e; }
-  .badge-closed { background: #f1f5f9; color: #475569; }
+    .cover-slide .org {
+      font-size: 14px;
+      color: #64748b;
+      margin-top: 24px;
+    }
 
-  /* ── Flow diagram ── */
-  .flow {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    margin: 16px 0;
-    flex-wrap: wrap;
-    font-size: 15px;
-    font-weight: 600;
-  }
-  .flow .node {
-    background: #f8fafc;
-    border: 2px solid #e2e8f0;
-    padding: 8px 16px;
-    border-radius: 8px;
-  }
-  .flow .arrow { color: #9d2620; font-size: 18px; }
-  .flow .node.highlight {
-    background: #9d2620;
-    color: white;
-    border-color: #9d2620;
-  }
-  .flow .node.green {
-    background: #f0fdf4;
-    border-color: #22c55e;
-  }
+    /* ── Slide typography ── */
+    .slide h2 {
+      font-size: 36px;
+      font-weight: 800;
+      color: #9d2620;
+      margin-bottom: 24px;
+      line-height: 1.2;
+    }
 
-  kbd {
-    background: #f1f5f9;
-    border: 1px solid #cbd5e1;
-    border-radius: 3px;
-    padding: 1px 6px;
-    font-size: 14px;
-    font-family: inherit;
-  }
+    .slide h3 {
+      font-size: 20px;
+      font-weight: 700;
+      color: #1e293b;
+      margin: 20px 0 8px;
+    }
 
-  /* ── Navigation bar ── */
-  .nav-bar {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: 56px;
-    background: #1e293b;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0 32px;
-    z-index: 100;
-    box-shadow: 0 -2px 12px rgba(0,0,0,0.15);
-  }
-  .nav-bar .slide-counter {
-    color: #94a3b8;
-    font-size: 13px;
-    font-weight: 600;
-    min-width: 100px;
-  }
-  .nav-bar .slide-title {
-    color: #e2e8f0;
-    font-size: 14px;
-    font-weight: 500;
-    flex: 1;
-    text-align: center;
-  }
-  .nav-bar .nav-buttons {
-    display: flex;
-    gap: 8px;
-    min-width: 100px;
-    justify-content: flex-end;
-  }
-  .nav-btn {
-    background: #334155;
-    color: white;
-    border: none;
-    padding: 8px 20px;
-    border-radius: 6px;
-    font-size: 13px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: background 0.15s;
-  }
-  .nav-btn:hover { background: #475569; }
-  .nav-btn:disabled { opacity: 0.3; cursor: not-allowed; }
-  .nav-btn.primary { background: #9d2620; }
-  .nav-btn.primary:hover { background: #b82d26; }
+    .slide h4 {
+      font-size: 15px;
+      font-weight: 700;
+      color: #475569;
+      margin: 12px 0 6px;
+    }
 
-  /* ── Progress bar ── */
-  .progress-bar {
-    position: fixed;
-    top: 0;
-    left: 0;
-    height: 3px;
-    background: #9d2620;
-    transition: width 0.3s ease;
-    z-index: 101;
-  }
+    .slide p {
+      font-size: 18px;
+      line-height: 1.6;
+      margin-bottom: 12px;
+      color: #334155;
+    }
 
-  /* ── Print styles ── */
-  @media print {
-    body { background: white; overflow: visible; height: auto; }
-    .slide { display: flex !important; page-break-after: always; height: auto; min-height: 100vh; padding: 0.5in; }
-    .nav-bar, .progress-bar { display: none !important; }
-    .slide h2 { font-size: 20pt; }
-    .slide p, .slide li { font-size: 11pt; }
-    table { font-size: 10pt; }
-    .callout { font-size: 10pt; }
-  }
-</style>
+    .slide ul,
+    .slide ol {
+      font-size: 17px;
+      line-height: 1.6;
+      margin: 6px 0 12px 24px;
+      color: #334155;
+    }
+
+    .slide li {
+      margin-bottom: 6px;
+    }
+
+    /* ── Two-column ── */
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 32px;
+      margin: 12px 0;
+    }
+
+    /* ── Callout ── */
+    .callout {
+      background: #fef2f2;
+      border-left: 4px solid #9d2620;
+      padding: 14px 18px;
+      margin: 16px 0;
+      font-size: 16px;
+      border-radius: 0 8px 8px 0;
+      line-height: 1.5;
+    }
+
+    .callout.tip {
+      background: #f0fdf4;
+      border-left-color: #22c55e;
+    }
+
+    .callout.info {
+      background: #eff6ff;
+      border-left-color: #3b82f6;
+    }
+
+    .callout strong {
+      display: block;
+      margin-bottom: 4px;
+      font-size: 15px;
+    }
+
+    /* ── Table ── */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 12px 0;
+      font-size: 16px;
+    }
+
+    th {
+      background: #f8fafc;
+      text-align: left;
+      font-weight: 700;
+      padding: 8px 12px;
+      border: 1px solid #e2e8f0;
+      color: #475569;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    td {
+      padding: 8px 12px;
+      border: 1px solid #e2e8f0;
+      vertical-align: top;
+    }
+
+    /* ── Steps ── */
+    .steps {
+      counter-reset: step;
+      list-style: none;
+      margin-left: 0;
+      padding-left: 0;
+    }
+
+    .steps li {
+      counter-increment: step;
+      padding-left: 36px;
+      position: relative;
+      margin-bottom: 10px;
+      font-size: 17px;
+    }
+
+    .steps li::before {
+      content: counter(step);
+      position: absolute;
+      left: 0;
+      top: 2px;
+      width: 24px;
+      height: 24px;
+      background: #9d2620;
+      color: white;
+      border-radius: 50%;
+      font-size: 13px;
+      font-weight: 700;
+      text-align: center;
+      line-height: 24px;
+    }
+
+    /* ── Badges ── */
+    .badge {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+    }
+
+    .badge-new {
+      background: #dbeafe;
+      color: #1d4ed8;
+    }
+
+    .badge-attempted {
+      background: #fef3c7;
+      color: #92400e;
+    }
+
+    .badge-qualified {
+      background: #d1fae5;
+      color: #065f46;
+    }
+
+    .badge-prospecting {
+      background: #dbeafe;
+      color: #1d4ed8;
+    }
+
+    .badge-active {
+      background: #d1fae5;
+      color: #065f46;
+    }
+
+    .badge-offer {
+      background: #ede9fe;
+      color: #5b21b6;
+    }
+
+    .badge-uc {
+      background: #fef3c7;
+      color: #92400e;
+    }
+
+    .badge-closed {
+      background: #f1f5f9;
+      color: #475569;
+    }
+
+    /* ── Flow diagram ── */
+    .flow {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin: 16px 0;
+      flex-wrap: wrap;
+      font-size: 15px;
+      font-weight: 600;
+    }
+
+    .flow .node {
+      background: #f8fafc;
+      border: 2px solid #e2e8f0;
+      padding: 8px 16px;
+      border-radius: 8px;
+    }
+
+    .flow .arrow {
+      color: #9d2620;
+      font-size: 18px;
+    }
+
+    .flow .node.highlight {
+      background: #9d2620;
+      color: white;
+      border-color: #9d2620;
+    }
+
+    .flow .node.green {
+      background: #f0fdf4;
+      border-color: #22c55e;
+    }
+
+    kbd {
+      background: #f1f5f9;
+      border: 1px solid #cbd5e1;
+      border-radius: 3px;
+      padding: 1px 6px;
+      font-size: 14px;
+      font-family: inherit;
+    }
+
+    /* ── Navigation bar ── */
+    .nav-bar {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 56px;
+      background: #1e293b;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 32px;
+      z-index: 100;
+      box-shadow: 0 -2px 12px rgba(0, 0, 0, 0.15);
+    }
+
+    .nav-bar .slide-counter {
+      color: #94a3b8;
+      font-size: 13px;
+      font-weight: 600;
+      min-width: 100px;
+    }
+
+    .nav-bar .slide-title {
+      color: #e2e8f0;
+      font-size: 14px;
+      font-weight: 500;
+      flex: 1;
+      text-align: center;
+    }
+
+    .nav-bar .nav-buttons {
+      display: flex;
+      gap: 8px;
+      min-width: 100px;
+      justify-content: flex-end;
+    }
+
+    .nav-btn {
+      background: #334155;
+      color: white;
+      border: none;
+      padding: 8px 20px;
+      border-radius: 6px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+
+    .nav-btn:hover {
+      background: #475569;
+    }
+
+    .nav-btn:disabled {
+      opacity: 0.3;
+      cursor: not-allowed;
+    }
+
+    .nav-btn.primary {
+      background: #9d2620;
+    }
+
+    .nav-btn.primary:hover {
+      background: #b82d26;
+    }
+
+    /* ── Progress bar ── */
+    .progress-bar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 3px;
+      background: #9d2620;
+      transition: width 0.3s ease;
+      z-index: 101;
+    }
+
+    /* ── Print styles ── */
+    @media print {
+      body {
+        background: white;
+        overflow: visible;
+        height: auto;
+      }
+
+      .slide {
+        display: flex !important;
+        page-break-after: always;
+        height: auto;
+        min-height: 100vh;
+        padding: 0.5in;
+      }
+
+      .nav-bar,
+      .progress-bar {
+        display: none !important;
+      }
+
+      .slide h2 {
+        font-size: 20pt;
+      }
+
+      .slide p,
+      .slide li {
+        font-size: 11pt;
+      }
+
+      table {
+        font-size: 10pt;
+      }
+
+      .callout {
+        font-size: 10pt;
+      }
+    }
+  </style>
 </head>
+
 <body>
 
-<div class="progress-bar" id="progress"></div>
+  <div class="progress-bar" id="progress"></div>
 
-<!-- ══════════════ SLIDE 1: Cover ══════════════ -->
-<div class="slide cover-slide active" data-title="Welcome">
-  <h1>DealFlow CRM</h1>
-  <div class="accent-bar"></div>
-  <div class="subtitle">Agent Quick Start Guide</div>
-  <div class="org">Premier Realty Group of West Tennessee, LLC<br>Paris &bull; McKenzie &bull; Huntingdon</div>
-</div>
+  <!-- ══════════════ SLIDE 1: Cover ══════════════ -->
+  <div class="slide cover-slide active" data-title="Welcome">
+    <h1>DealFlow CRM</h1>
+    <div class="accent-bar"></div>
+    <div class="subtitle">Agent Quick Start Guide</div>
+    <div class="org">Premier Realty Group of West Tennessee, LLC<br>Paris &bull; McKenzie &bull; Huntingdon</div>
+  </div>
 
-<!-- ══════════════ SLIDE 2: Big Picture ══════════════ -->
-<div class="slide" data-title="The Big Picture">
-  <h2>The Big Picture</h2>
+  <!-- ══════════════ SLIDE 2: Big Picture ══════════════ -->
+  <div class="slide" data-title="The Big Picture">
+    <h2>The Big Picture</h2>
 
-  <img src="BigPicture.png" alt="Client Lifecycle" style="max-width: 100%; height: auto; margin-bottom: 16px; border-radius: 8px;">
+    <img src="BigPicture.png" alt="Client Lifecycle"
+      style="width: 50%; height: auto; margin: 0 auto 16px; display: block; border-radius: 8px;">
 
-  <div class="flow">
+    <!-- <div class="flow">
     <span class="node highlight">Lead Arrives</span>
     <span class="arrow">&rarr;</span>
     <span class="node">Qualify</span>
@@ -329,52 +453,58 @@
     <span class="arrow">&rarr;</span>
     <span class="node highlight">New Deal</span>
     <span class="arrow">&#x21BB;</span>
-  </div>
+  </div> -->
 
-  <p>Leads arrive from everywhere &mdash; website forms, Zillow, Realtor.com, referrals, sign calls, open houses, live chat. However they come in, they land in DealFlow as a <strong>Lead</strong>. You qualify them quickly, create a <strong>Deal</strong>, and the lead phase ends. But the relationship doesn't.</p>
+    <p>Leads arrive from everywhere &mdash; website forms, Zillow, Realtor.com, referrals, sign calls, open houses, live
+      chat. However they come in, they land in DealFlow as a <strong>Lead</strong>. You qualify them quickly, create a
+      <strong>Deal</strong>, and the lead phase ends. But the relationship doesn't.</p>
 
-  <p>After the deal closes, that Person stays in your database. You keep in touch &mdash; birthdays, anniversaries, quarterly check-ins. When they're ready to buy or sell again, you create a <strong>new Deal</strong> directly from their record. No need to make them a lead again.</p>
+    <p>After the deal closes, that Person stays in your database. You keep in touch &mdash; birthdays, anniversaries,
+      quarterly check-ins. When they're ready to buy or sell again, you create a <strong>new Deal</strong> directly from
+      their record. No need to make them a lead again.</p>
 
-  <div class="callout info">
-    <strong>Key Concept</strong>
-    The lead phase is just the front door &mdash; a short qualification step. The Person record is where the lifelong relationship lives. One Person, many Deals over a lifetime.
-  </div>
-</div>
-
-<!-- ══════════════ SLIDE 2: Help & Feedback ══════════════ -->
-<div class="slide" data-title="Help & Feedback">
-  <h2>Getting Help &amp; Giving Feedback</h2>
-
-  <p><strong>Help is built into every page</strong> and we want your feedback.</p>
-
-  <div class="two-col">
-    <div>
-      <h3>Help System</h3>
-      <ul>
-        <li>Click the <strong>?</strong> button in the top nav on any page</li>
-        <li>A drawer slides open with help specific to that page</li>
-        <li>Covers what everything does, workflows, and tips</li>
-        <li>Press <kbd>Esc</kbd> to close</li>
-      </ul>
-    </div>
-    <div>
-      <h3>Feedback &amp; Bug Reports</h3>
-      <ul>
-        <li>Click the <strong>+</strong> button in the top nav bar</li>
-        <li>Submit bugs, suggestions, or feature requests</li>
-        <li>Includes automatic screenshot &amp; context snapshot</li>
-        <li>Admin reviews and responds &mdash; your input shapes the system</li>
-      </ul>
+    <div class="callout info">
+      <strong>Key Concept</strong>
+      The lead phase is just the front door &mdash; a short qualification step. The Person record is where the lifelong
+      relationship lives. One Person, many Deals over a lifetime.
     </div>
   </div>
 
-  <div class="callout tip">
-    <strong>Don't Struggle in Silence</strong>
-    If something is confusing, broken, or could be better &mdash; tell us. The help drawer and feedback button are always one click away.
-  </div>
-</div>
+  <!-- ══════════════ SLIDE 2: Help & Feedback ══════════════ -->
+  <div class="slide" data-title="Help & Feedback">
+    <h2>Getting Help &amp; Giving Feedback</h2>
 
-<!-- ══════════════ SLIDES 4-5: Live Chat & Dashboard (commented out for quick start) ══════════════
+    <p><strong>Help is built into every page</strong> and we want your feedback.</p>
+
+    <div class="two-col">
+      <div>
+        <h3>Help System</h3>
+        <ul>
+          <li>Click the <strong>?</strong> button in the top nav on any page</li>
+          <li>A drawer slides open with help specific to that page</li>
+          <li>Covers what everything does, workflows, and tips</li>
+          <li>Press <kbd>Esc</kbd> to close</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Feedback &amp; Bug Reports</h3>
+        <ul>
+          <li>Click the <strong>+</strong> button in the top nav bar</li>
+          <li>Submit bugs, suggestions, or feature requests</li>
+          <li>Includes automatic screenshot &amp; context snapshot</li>
+          <li>Admin reviews and responds &mdash; your input shapes the system</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="callout tip">
+      <strong>Don't Struggle in Silence</strong>
+      If something is confusing, broken, or could be better &mdash; tell us. The help drawer and feedback button are
+      always one click away.
+    </div>
+  </div>
+
+  <!-- ══════════════ SLIDES 4-5: Live Chat & Dashboard (commented out for quick start) ══════════════
 <div class="slide" data-title="Live Chat">
   <h2>Live Chat &mdash; Your #1 Lead Source</h2>
 
@@ -433,44 +563,45 @@
 </div>
 -->
 
-<!-- ══════════════ SLIDE 3: Lead Statuses ══════════════ -->
-<div class="slide" data-title="Lead Statuses">
-  <h2>Working Your Leads</h2>
+  <!-- ══════════════ SLIDE 3: Lead Statuses ══════════════ -->
+  <div class="slide" data-title="Lead Statuses">
+    <h2>Working Your Leads</h2>
 
-  <table>
-    <tr>
-      <th>Status</th>
-      <th>What It Means</th>
-      <th>Your Action</th>
-    </tr>
-    <tr>
-      <td><span class="badge badge-new">Never Contacted</span></td>
-      <td>Brand new &mdash; no outreach yet</td>
-      <td>Call or text within 5 minutes</td>
-    </tr>
-    <tr>
-      <td><span class="badge badge-attempted">Awaiting Response</span></td>
-      <td>You've reached out, waiting to hear back</td>
-      <td>Follow up, try different channels</td>
-    </tr>
-    <tr>
-      <td><span class="badge badge-qualified">Ready for Appointment</span></td>
-      <td>Qualified &amp; ready for a meeting or showing</td>
-      <td>Set the appointment, then convert to a Deal</td>
-    </tr>
-  </table>
+    <table>
+      <tr>
+        <th>Status</th>
+        <th>What It Means</th>
+        <th>Your Action</th>
+      </tr>
+      <tr>
+        <td><span class="badge badge-new">Never Contacted</span></td>
+        <td>Brand new &mdash; no outreach yet</td>
+        <td>Call or text within 5 minutes</td>
+      </tr>
+      <tr>
+        <td><span class="badge badge-attempted">Awaiting Response</span></td>
+        <td>You've reached out, waiting to hear back</td>
+        <td>Follow up, try different channels</td>
+      </tr>
+      <tr>
+        <td><span class="badge badge-qualified">Ready for Appointment</span></td>
+        <td>Qualified &amp; ready for a meeting or showing</td>
+        <td>Set the appointment, then convert to a Deal</td>
+      </tr>
+    </table>
 
-  <h3>Daily Workflow</h3>
-  <ol class="steps">
-    <li>Go to <strong>Leads</strong> &mdash; click the <span class="badge badge-new">Never Contacted</span> filter</li>
-    <li>Click into each lead &mdash; review info, source, tracking data</li>
-    <li>Make contact and log the activity in the composer</li>
-    <li>Work through the <strong>Pre-Qualification Checklist</strong></li>
-    <li>When qualified, click <strong>Convert to Client</strong> to create a Deal</li>
-  </ol>
-</div>
+    <h3>Daily Workflow</h3>
+    <ol class="steps">
+      <li>Go to <strong>Leads</strong> &mdash; click the <span class="badge badge-new">Never Contacted</span> filter
+      </li>
+      <li>Click into each lead &mdash; review info, source, tracking data</li>
+      <li>Make contact and log the activity in the composer</li>
+      <li>Work through the <strong>Pre-Qualification Checklist</strong></li>
+      <li>When qualified, click <strong>Convert to Client</strong> to create a Deal</li>
+    </ol>
+  </div>
 
-<!-- ══════════════ SLIDE 7: Lead Tools (commented out for quick start) ══════════════
+  <!-- ══════════════ SLIDE 7: Lead Tools (commented out for quick start) ══════════════
 <div class="slide" data-title="Lead Tools">
   <h2>Lead Tools</h2>
 
@@ -506,38 +637,57 @@
 </div>
 -->
 
-<!-- ══════════════ SLIDE 4: Deal Stages ══════════════ -->
-<div class="slide" data-title="Deal Stages">
-  <h2>Managing Deals</h2>
+  <!-- ══════════════ SLIDE 4: Deal Stages ══════════════ -->
+  <div class="slide" data-title="Deal Stages">
+    <h2>Managing Deals</h2>
 
-  <div class="flow">
-    <span class="node">Prospecting</span>
-    <span class="arrow">&rarr;</span>
-    <span class="node">Active</span>
-    <span class="arrow">&rarr;</span>
-    <span class="node">Offer</span>
-    <span class="arrow">&rarr;</span>
-    <span class="node">Under Contract</span>
-    <span class="arrow">&rarr;</span>
-    <span class="node highlight">Closed</span>
+    <div class="flow">
+      <span class="node">Prospecting</span>
+      <span class="arrow">&rarr;</span>
+      <span class="node">Active</span>
+      <span class="arrow">&rarr;</span>
+      <span class="node">Offer</span>
+      <span class="arrow">&rarr;</span>
+      <span class="node">Under Contract</span>
+      <span class="arrow">&rarr;</span>
+      <span class="node highlight">Closed</span>
+    </div>
+
+    <table>
+      <tr>
+        <th>Stage</th>
+        <th>What's Happening</th>
+      </tr>
+      <tr>
+        <td><span class="badge badge-prospecting">Prospecting</span></td>
+        <td>Client is searching &mdash; setting up alerts, showing properties</td>
+      </tr>
+      <tr>
+        <td><span class="badge badge-active">Active</span></td>
+        <td>Listing is live or buyer is actively seeing homes</td>
+      </tr>
+      <tr>
+        <td><span class="badge badge-offer">Offer</span></td>
+        <td>Offer submitted, negotiating</td>
+      </tr>
+      <tr>
+        <td><span class="badge badge-uc">Under Contract</span></td>
+        <td>Binding agreement &mdash; inspections, appraisal, closing prep</td>
+      </tr>
+      <tr>
+        <td><span class="badge badge-closed">Closed</span></td>
+        <td>Done! Commission earned.</td>
+      </tr>
+    </table>
+
+    <div class="callout">
+      <strong>Advancing Stages</strong>
+      Click <strong>Advance Stage</strong> at the top of a deal. "Under Contract" opens a modal for binding/closing
+      dates. "Active" on a listing prompts for the MLS number.
+    </div>
   </div>
 
-  <table>
-    <tr><th>Stage</th><th>What's Happening</th></tr>
-    <tr><td><span class="badge badge-prospecting">Prospecting</span></td><td>Client is searching &mdash; setting up alerts, showing properties</td></tr>
-    <tr><td><span class="badge badge-active">Active</span></td><td>Listing is live or buyer is actively seeing homes</td></tr>
-    <tr><td><span class="badge badge-offer">Offer</span></td><td>Offer submitted, negotiating</td></tr>
-    <tr><td><span class="badge badge-uc">Under Contract</span></td><td>Binding agreement &mdash; inspections, appraisal, closing prep</td></tr>
-    <tr><td><span class="badge badge-closed">Closed</span></td><td>Done! Commission earned.</td></tr>
-  </table>
-
-  <div class="callout">
-    <strong>Advancing Stages</strong>
-    Click <strong>Advance Stage</strong> at the top of a deal. "Under Contract" opens a modal for binding/closing dates. "Active" on a listing prompts for the MLS number.
-  </div>
-</div>
-
-<!-- ══════════════ SLIDES 9-14 (commented out for quick start) ══════════════
+  <!-- ══════════════ SLIDES 9-14 (commented out for quick start) ══════════════
 <div class="slide" data-title="Deal Detail">
   <h2>Deal Detail Page</h2>
 
@@ -708,46 +858,47 @@
 </div>
 -->
 
-<!-- ══════════════ Navigation Bar ══════════════ -->
-<div class="nav-bar">
-  <div class="slide-counter" id="counter">1 / 4</div>
-  <div class="slide-title" id="slideTitle">Welcome</div>
-  <div class="nav-buttons">
-    <button class="nav-btn" id="prevBtn" disabled>&larr; Prev</button>
-    <button class="nav-btn primary" id="nextBtn">Next &rarr;</button>
+  <!-- ══════════════ Navigation Bar ══════════════ -->
+  <div class="nav-bar">
+    <div class="slide-counter" id="counter">1 / 4</div>
+    <div class="slide-title" id="slideTitle">Welcome</div>
+    <div class="nav-buttons">
+      <button class="nav-btn" id="prevBtn" disabled>&larr; Prev</button>
+      <button class="nav-btn primary" id="nextBtn">Next &rarr;</button>
+    </div>
   </div>
-</div>
 
-<script>
-  const slides = document.querySelectorAll('.slide');
-  let current = 0;
+  <script>
+    const slides = document.querySelectorAll('.slide');
+    let current = 0;
 
-  function show(n) {
-    slides[current].classList.remove('active');
-    current = Math.max(0, Math.min(n, slides.length - 1));
-    slides[current].classList.add('active');
-    document.getElementById('counter').textContent = `${current + 1} / ${slides.length}`;
-    document.getElementById('slideTitle').textContent = slides[current].dataset.title || '';
-    document.getElementById('prevBtn').disabled = current === 0;
-    document.getElementById('nextBtn').disabled = current === slides.length - 1;
-    document.getElementById('nextBtn').textContent = current === slides.length - 1 ? 'Done' : 'Next →';
-    document.getElementById('progress').style.width = `${((current + 1) / slides.length) * 100}%`;
-    slides[current].scrollTop = 0;
-  }
+    function show(n) {
+      slides[current].classList.remove('active');
+      current = Math.max(0, Math.min(n, slides.length - 1));
+      slides[current].classList.add('active');
+      document.getElementById('counter').textContent = `${current + 1} / ${slides.length}`;
+      document.getElementById('slideTitle').textContent = slides[current].dataset.title || '';
+      document.getElementById('prevBtn').disabled = current === 0;
+      document.getElementById('nextBtn').disabled = current === slides.length - 1;
+      document.getElementById('nextBtn').textContent = current === slides.length - 1 ? 'Done' : 'Next →';
+      document.getElementById('progress').style.width = `${((current + 1) / slides.length) * 100}%`;
+      slides[current].scrollTop = 0;
+    }
 
-  function next() { show(current + 1); }
-  function prev() { show(current - 1); }
+    function next() { show(current + 1); }
+    function prev() { show(current - 1); }
 
-  document.getElementById('prevBtn').addEventListener('click', prev);
-  document.getElementById('nextBtn').addEventListener('click', next);
+    document.getElementById('prevBtn').addEventListener('click', prev);
+    document.getElementById('nextBtn').addEventListener('click', next);
 
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); next(); }
-    if (e.key === 'ArrowLeft') { e.preventDefault(); prev(); }
-  });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); next(); }
+      if (e.key === 'ArrowLeft') { e.preventDefault(); prev(); }
+    });
 
-  show(0);
-</script>
+    show(0);
+  </script>
 
 </body>
+
 </html>
