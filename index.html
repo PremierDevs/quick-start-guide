@@ -310,7 +310,7 @@
   <div class="org">Premier Realty Group of West Tennessee, LLC<br>Paris &bull; McKenzie &bull; Huntingdon</div>
 </div>
 
-<!-- ══════════════ SLIDE 2: Big Picture (commented out for quick start) ══════════════
+<!-- ══════════════ SLIDE 2: Big Picture ══════════════ -->
 <div class="slide" data-title="The Big Picture">
   <h2>The Big Picture</h2>
 
@@ -338,7 +338,6 @@
     The lead phase is just the front door &mdash; a short qualification step. The Person record is where the lifelong relationship lives. One Person, many Deals over a lifetime.
   </div>
 </div>
--->
 
 <!-- ══════════════ SLIDE 2: Help & Feedback ══════════════ -->
 <div class="slide" data-title="Help & Feedback">
@@ -712,8 +711,8 @@
   <div class="slide-counter" id="counter">1 / 4</div>
   <div class="slide-title" id="slideTitle">Welcome</div>
   <div class="nav-buttons">
-    <button class="nav-btn" id="prevBtn" onclick="prev()" disabled>&larr; Prev</button>
-    <button class="nav-btn primary" id="nextBtn" onclick="next()">Next &rarr;</button>
+    <button class="nav-btn" id="prevBtn" disabled>&larr; Prev</button>
+    <button class="nav-btn primary" id="nextBtn">Next &rarr;</button>
   </div>
 </div>
 
@@ -736,6 +735,9 @@
 
   function next() { show(current + 1); }
   function prev() { show(current - 1); }
+
+  document.getElementById('prevBtn').addEventListener('click', prev);
+  document.getElementById('nextBtn').addEventListener('click', next);
 
   document.addEventListener('keydown', (e) => {
     if (e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); next(); }
